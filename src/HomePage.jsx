@@ -1,9 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './App.css';
 
-function App() {
+function HomePage() {
   return (
-    <div className="container">
+    <div>
       <header className="header">
         <img src="https://ts1.mm.bing.net/th?id=OIP.OsYAPFCdrYqjgtCBkhvRugHaHa&pid=15.1" alt="House" className="header-image" />
       </header>
@@ -24,13 +25,17 @@ function App() {
             <img src="https://th.bing.com/th/id/OIP.w5x0Zx550fg9R_oLuI47cwHaGR?w=229&h=194&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Rent a Home" className="service-image" />
             <h3>Rent a Home</h3>
             <p>Plenty of homes for rent. Mobile living and rental search area.</p>
-            <button className="btn">Find Rentals</button>
+            <Link to="/rent">
+              <button className="btn">Find Rentals</button>
+            </Link>
           </div>
           <div className="service">
             <img src="https://th.bing.com/th/id/OIP.FmVHEG1PZdknfK4IolBtmgHaEK?rs=1&pid=ImgDetMain" alt="Buy a Home" className="service-image" />
             <h3>Buy a Home</h3>
             <p>Plenty of homes for sale. Mobile living and rental search area.</p>
-            <button className="btn">Browse Homes</button>
+            <Link to="/buy">
+              <button className="btn">Browse Homes</button>
+            </Link>
           </div>
         </div>
       </section>
@@ -47,6 +52,26 @@ function App() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function RentPage() {
+  return <h2>Rent Page</h2>;
+}
+
+function BuyPage() {
+  return <h2>Buy Page</h2>;
+}
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/rent" component={RentPage} />
+        <Route path="/buy" component={BuyPage} />
+      </Switch>
+    </Router>
   );
 }
 
