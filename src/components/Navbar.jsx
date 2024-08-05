@@ -1,6 +1,10 @@
+// src/components/Navbar.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isLoggedIn, email, onLogout }) => {
+  const navigate = useNavigate();
+
   return (
     <nav className="bg-blue-600 p-4 flex justify-between items-center">
       <div className="text-white text-2xl">EstateEmpire</div>
@@ -17,7 +21,7 @@ const Navbar = ({ isLoggedIn, email, onLogout }) => {
           </div>
         ) : (
           <>
-            <a href="/login" className="text-white">Sign Up/Login</a>
+            <button onClick={() => navigate('/login')} className="text-white">Sign Up/Login</button>
           </>
         )}
       </div>
