@@ -1,18 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Login from './Login';
-import SignUp from './SignUp';
+import SignUp from './Signup';
+import RentPage from './Rent';
+import BuyPage from './Buy';
+import Navbar from './Navbar';
 
 function HomePage() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const goToRentPage = () => {
-    history.push('/rent');
+    navigate('/rent');
   };
 
   const goToBuyPage = () => {
-    history.push('/buy');
+    navigate('/buy');
   };
 
   return (
@@ -63,25 +66,18 @@ function HomePage() {
   );
 }
 
-function RentPage() {
-  return <h2>Rent</h2>;
-}
-
-function BuyPage() {
-  return <h2>Buy</h2>;
-}
-
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/rent" component={RentPage} />
-        <Route path="/buy" component={BuyPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-      </Switch>
-    </Router>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/rent" element={<RentPage />} />
+        <Route path="/buy" element={<BuyPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </>
   );
 }
 
