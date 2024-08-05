@@ -1,12 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import './App.css';
+import Login from './Login';
+import SignUp from './SignUp';
 
 function HomePage() {
+  const history = useHistory();
+
+  const goToRentPage = () => {
+    history.push('/rent');
+  };
+
+  const goToBuyPage = () => {
+    history.push('/buy');
+  };
+
   return (
     <div>
       <header className="header">
-        <img src="https://ts1.mm.bing.net/th?id=OIP.OsYAPFCdrYqjgtCBkhvRugHaHa&pid=15.1" alt="House" className="header-image" />
+        <img src="https://th.bing.com/th?id=OIP.ag4AOOkPpuITbdqa5XPaBwHaE8&w=305&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="House" className="header-image" />
       </header>
       <section className="about-us">
         <h2>About Us</h2>
@@ -25,17 +37,13 @@ function HomePage() {
             <img src="https://th.bing.com/th/id/OIP.w5x0Zx550fg9R_oLuI47cwHaGR?w=229&h=194&c=7&r=0&o=5&dpr=1.5&pid=1.7" alt="Rent a Home" className="service-image" />
             <h3>Rent a Home</h3>
             <p>Plenty of homes for rent. Mobile living and rental search area.</p>
-            <Link to="/rent">
-              <button className="btn">Find Rentals</button>
-            </Link>
+            <button className="btn" onClick={goToRentPage}>Find Rentals</button>
           </div>
           <div className="service">
             <img src="https://th.bing.com/th/id/OIP.FmVHEG1PZdknfK4IolBtmgHaEK?rs=1&pid=ImgDetMain" alt="Buy a Home" className="service-image" />
             <h3>Buy a Home</h3>
             <p>Plenty of homes for sale. Mobile living and rental search area.</p>
-            <Link to="/buy">
-              <button className="btn">Browse Homes</button>
-            </Link>
+            <button className="btn" onClick={goToBuyPage}>Browse Homes</button>
           </div>
         </div>
       </section>
@@ -56,11 +64,11 @@ function HomePage() {
 }
 
 function RentPage() {
-  return <h2>Rent Page</h2>;
+  return <h2>Rent</h2>;
 }
 
 function BuyPage() {
-  return <h2>Buy Page</h2>;
+  return <h2>Buy</h2>;
 }
 
 function App() {
@@ -70,6 +78,8 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route path="/rent" component={RentPage} />
         <Route path="/buy" component={BuyPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
       </Switch>
     </Router>
   );
