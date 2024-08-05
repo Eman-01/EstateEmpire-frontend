@@ -1,4 +1,3 @@
-// src/pages/Signup.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,7 +33,7 @@ const Signup = ({ onSignup }) => {
       alert('Passwords do not match');
       return;
     }
-    // Add signup logic here
+    
     onSignup(email);
     navigate('/');
   };
