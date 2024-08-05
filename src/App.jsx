@@ -1,15 +1,35 @@
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
 
-import './App.css'
+  const handleLogin = (email) => {
+    setIsLoggedIn(true);
+    setEmail(email);
+  };
 
-function App() {
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setEmail('');
+  };
+
   return (
-    <>
-     <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
-  )
-}
+    <Router>
+      <div>
+        <Navbar isLoggedIn={isLoggedIn} email={email} onLogout={handleLogout} />
+        <Routes>
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/signup" element={<Signup onSignup={handleLogin} />} />
+          
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
-export default App
+export default App;
