@@ -1,13 +1,11 @@
-
-
-import './App.css'
+import Rent from './components/Rent';
+import Buy from './components/Buy';
 
 function App() {
   return (
     <>
-     <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Rent />
+    <Buy />
     </>
   )
 }
