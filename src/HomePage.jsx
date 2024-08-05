@@ -34,7 +34,7 @@ function App() {
           </div>
         </div>
       </section>
-      <footer className="contact-us" color='purple'>
+      <footer className="contact-us">
         <h2>Contact Us</h2>
         <address>
           <p>Address: Karen, Nairobi</p>
