@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './Homepage.css';
-import Login from './Login';
-import SignUp from './Signup';
-import RentPage from './Rent';
-import BuyPage from './Buy';
-import Navbar from './Navbar';
+import Login from "./Login.jsx"
+import SignUp from "./Signup.jsx"
+import RentPage from '../src/components/Rent';
+import BuyPage from '../src/components/Buy';
+import Navbar from '../src/components/Navbar';
 
 function HomePage() {
   const navigate = useNavigate();
