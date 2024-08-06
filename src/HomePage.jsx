@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import './App.css';
+import './Homepage.css';
 import Login from './Login';
 import SignUp from './Signup';
 import RentPage from './Rent';
