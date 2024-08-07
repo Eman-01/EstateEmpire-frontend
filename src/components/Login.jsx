@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,13 +6,30 @@ const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
- 
+    const user = getUserByEmail(email);
+    if (!user) {
+      setErrorMessage('Account not created');
+      return;
+    }
+    if (user.password !== password) {
+      setErrorMessage('Incorrect password');
+      return;
+    }
     onLogin(email);
     navigate('/');
+  };
+
+  // Mock function to get user by email
+  const getUserByEmail = (email) => {
+    // Replace with actual logic to get user by email
+    // For now, it returns a mock user for demonstration purposes
+    const mockUser = { email: 'test@example.com', password: 'Test@1234' };
+    return email === mockUser.email ? mockUser : null;
   };
 
   return (
@@ -20,8 +38,8 @@ const Login = ({ onLogin }) => {
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="mb-4 text-center text-2xl">Welcome to EstateEmpire</h2>
           <div className="flex justify-center mb-4">
-            <button type="button" onClick={() => navigate('/signup')} className="text-gray-600 border-b-2 border-blue-600">Sign In</button>
-            <button type="button" onClick={() => navigate('/login')} className="text-blue-600">Login</button>
+            <button type="button" onClick={() => navigate('/signup')} className="mr-4 text-blue-600">New Account</button>
+            <button type="button" className="text-gray-600 border-b-2 border-blue-600">Sign In</button>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -46,9 +64,10 @@ const Login = ({ onLogin }) => {
               {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
+          {errorMessage && <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>}
           <div className="flex items-center justify-between">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Login
+              Submit
             </button>
           </div>
         </form>

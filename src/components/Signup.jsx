@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = ({ onSignup }) => {
@@ -7,6 +7,15 @@ const Signup = ({ onSignup }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [passwordValidations, setPasswordValidations] = useState({
+    length: false,
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    specialChar: false,
+  });
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -15,25 +24,37 @@ const Signup = ({ onSignup }) => {
   };
 
   const validatePassword = (password) => {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return re.test(password);
+    const validations = {
+      length: password.length >= 8,
+      lowercase: /[a-z]/.test(password),
+      uppercase: /[A-Z]/.test(password),
+      number: /\d/.test(password),
+      specialChar: /[@$!%*?&]/.test(password),
+    };
+    setPasswordValidations(validations);
+    return Object.values(validations).every(Boolean);
   };
+
+  useEffect(() => {
+    const isValid = validatePassword(password);
+    setIsPasswordValid(isValid);
+  }, [password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      alert('Invalid email format');
+      setErrorMessage('Invalid email format');
       return;
     }
-    if (!validatePassword(password)) {
-      alert('Password does not meet the criteria');
+    if (!isPasswordValid) {
+      setErrorMessage('Password does not meet the criteria');
       return;
     }
     if (password !== confirmPassword) {
-      alert('Passwords do not match');
+      setErrorMessage('Passwords do not match');
       return;
     }
-    // Add signup logic here
+  
     onSignup(email);
     navigate('/');
   };
@@ -84,15 +105,19 @@ const Signup = ({ onSignup }) => {
             </button>
           </div>
           <div className="mb-4">
-            <p className="text-gray-700 text-sm">At least 8 characters</p>
-            <p className="text-gray-700 text-sm">Mix of letters and numbers</p>
-            <p className="text-gray-700 text-sm">At least 1 special character</p>
-            <p className="text-gray-700 text-sm">At least 1 lowercase letter and 1 uppercase letter</p>
+            <p className={`text-sm ${passwordValidations.length ? 'text-green-500' : 'text-red-500'}`}>✔️ At least 8 characters</p>
+            <p className={`text-sm ${passwordValidations.lowercase ? 'text-green-500' : 'text-red-500'}`}>✔️ At least 1 lowercase letter</p>
+            <p className={`text-sm ${passwordValidations.uppercase ? 'text-green-500' : 'text-red-500'}`}>✔️ At least 1 uppercase letter</p>
+            <p className={`text-sm ${passwordValidations.number ? 'text-green-500' : 'text-red-500'}`}>✔️ At least 1 number</p>
+            <p className={`text-sm ${passwordValidations.specialChar ? 'text-green-500' : 'text-red-500'}`}>✔️ At least 1 special character (@$!%*?&)</p>
           </div>
+          {errorMessage && <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>}
           <div className="flex items-center justify-between">
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Submit
-            </button>
+            {isPasswordValid && (
+              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Submit
+              </button>
+            )}
           </div>
         </form>
       </div>
