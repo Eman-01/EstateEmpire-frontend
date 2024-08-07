@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
-import RentPage from './RentPage';
-import BuyPage from './BuyPage';
+import RentPage from './Rent';
+import BuyPage from './Buy';
 import Login from './Login';
 import SignUp from './SignUp';
 
