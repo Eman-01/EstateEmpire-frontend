@@ -9,7 +9,7 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+ 
     onLogin(email);
     navigate('/');
   };
@@ -20,8 +20,8 @@ const Login = ({ onLogin }) => {
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="mb-4 text-center text-2xl">Welcome to EstateEmpire</h2>
           <div className="flex justify-center mb-4">
-            <button onClick={() => navigate('/signup')} className="mr-4 text-blue-600">New Account</button>
-            <button className="text-gray-600 border-b-2 border-blue-600">Sign In</button>
+            <button type="button" onClick={() => navigate('/signup')} className="text-gray-600 border-b-2 border-blue-600">Sign In</button>
+            <button type="button" onClick={() => navigate('/login')} className="text-blue-600">Login</button>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
@@ -33,7 +33,7 @@ const Login = ({ onLogin }) => {
               placeholder="Enter Email"
             />
           </div>
-          <div className="mb-6 relative">
+          <div className="mb-4 relative">
             <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
             <input
               type={showPassword ? 'text' : 'password'}
@@ -48,7 +48,7 @@ const Login = ({ onLogin }) => {
           </div>
           <div className="flex items-center justify-between">
             <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-              Submit
+              Login
             </button>
           </div>
         </form>

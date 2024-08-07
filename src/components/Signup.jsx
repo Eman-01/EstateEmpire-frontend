@@ -10,12 +10,12 @@ const Signup = ({ onSignup }) => {
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
 
   const validatePassword = (password) => {
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return re.test(password);
   };
 
@@ -33,7 +33,7 @@ const Signup = ({ onSignup }) => {
       alert('Passwords do not match');
       return;
     }
-    
+    // Add signup logic here
     onSignup(email);
     navigate('/');
   };
@@ -44,8 +44,8 @@ const Signup = ({ onSignup }) => {
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <h2 className="mb-4 text-center text-2xl">Welcome to EstateEmpire</h2>
           <div className="flex justify-center mb-4">
-            <button className="mr-4 text-gray-600 border-b-2 border-blue-600">New Account</button>
-            <button onClick={() => navigate('/login')} className="text-blue-600">Sign In</button>
+            <button type="button" className="mr-4 text-gray-600 border-b-2 border-blue-600">New Account</button>
+            <button type="button" onClick={() => navigate('/login')} className="text-blue-600">Sign In</button>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>

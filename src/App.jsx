@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
