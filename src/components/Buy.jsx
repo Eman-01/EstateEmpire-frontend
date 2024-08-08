@@ -18,7 +18,7 @@ export default function Buy() {
 
     return (
         <>
-        <Navbar />
+       
     
         <div className="flex flex-wrap justify-center pt-32 mx-44">
             {purchases.map((purchase, index) => (

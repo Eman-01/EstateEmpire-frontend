@@ -1,8 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 function HomePage() {
+  const navigate = useNavigate();
+
+  const goToRentPage = () => {
+    navigate('/rent');
+  };
+
+  const goToBuyPage = () => {
+    navigate('/buy');
+  };
+
   return (
     <div>
       <header className="header">
@@ -59,7 +70,9 @@ function HomePage() {
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               Renting a property offers flexibility, lower upfront costs, and freedom from maintenance responsibilities. It allows you to move easily for job opportunities or personal reasons, and often includes amenities like gyms and pools. Consider renting to maintain financial flexibility and enjoy hassle-free living.
             </p>
-            <button className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'>
+            <button 
+              className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out' 
+              onClick={goToRentPage}>
               Rent
             </button>
           </div>
@@ -77,7 +90,9 @@ function HomePage() {
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               Buying a property can be a wise investment, offering stability and the potential for long-term financial growth. Homeownership allows you to build equity, benefit from tax advantages, and have the freedom to customize your space. Consider buying to secure your financial future and create a lasting home.
             </p>
-            <button className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out'>
+            <button 
+              className='px-6 py-2 text-white font-semibold bg-blue-500 rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300 ease-in-out' 
+              onClick={goToBuyPage}>
               Buy
             </button>
           </div>
@@ -107,7 +122,7 @@ function HomePage() {
           </div>
           <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <span className="block text-sm text-black sm:text-center dark:text-gray-400">
-          <a href="https://flowbite.com/" className="text-black hover:underline">EstateEmpire™</a>. All Rights Reserved.
+            <a href="https://flowbite.com/" className="text-black hover:underline">EstateEmpire™</a>. All Rights Reserved.
           </span>
         </div>
       </footer>

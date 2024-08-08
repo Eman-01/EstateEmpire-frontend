@@ -17,7 +17,7 @@ export default function Rent() {
 
     return (
     <>
-    <Navbar />
+   
     
     <div className="flex flex-wrap justify-center pt-32 mx-44">
         {rentals.map((rental, index) => (
