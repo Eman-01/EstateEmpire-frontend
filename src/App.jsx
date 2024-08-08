@@ -1,27 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from '../src/components/Navbar';
-import HomePage from './HomePage';
-import RentPage from '../src/components/Rent';
-import BuyPage from '../src/components/Buy';
-import Login from './Login';
-import SignUp from './Signup';
+import Navbar from './components/Navbar';
+import HomePage from './components/HomePage';
+import Rent from './components/Rent';
+import Buy from './components/Buy';
 
 function App() {
   return (
-    <>
-   <Router>
+    <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/rent" element={<RentPage />} />
-        <Route path="/buy" element={<BuyPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/rent" element={<Rent />} />
+        <Route path="/buy" element={<Buy />} />
       </Routes>
     </Router>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
