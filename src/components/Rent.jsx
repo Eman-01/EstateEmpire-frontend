@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Navbar from './Navbar'; // Adjust the path if necessary
+import Navbar from './Navbar'; 
 
 export default function Rent() {
     const [rentals, setRentals] = useState([]);
@@ -17,7 +17,7 @@ export default function Rent() {
 
     return (
     <>
-    <Navbar />
+   
     
     <div className="flex flex-wrap justify-center pt-32 mx-44">
         {rentals.map((rental, index) => (
