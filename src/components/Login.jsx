@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,27 +8,28 @@ const Login = ({ onLogin }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = getUserByEmail(email);
-    if (!user) {
-      setErrorMessage('Account not created');
-      return;
-    }
-    if (user.password !== password) {
-      setErrorMessage('Incorrect password');
-      return;
-    }
-    onLogin(email);
-    navigate('/');
-  };
 
-  // Mock function to get user by email
-  const getUserByEmail = (email) => {
-    // Replace with actual logic to get user by email
-    // For now, it returns a mock user for demonstration purposes
-    const mockUser = { email: 'test@example.com', password: 'Test@1234' };
-    return email === mockUser.email ? mockUser : null;
+    try {
+      const response = await fetch('http://127.0.0.1:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        onLogin(email);
+        navigate('/');
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Login failed');
+      }
+    } catch (error) {
+      setErrorMessage('Login failed: ' + error.message);
+    }
   };
 
   return (

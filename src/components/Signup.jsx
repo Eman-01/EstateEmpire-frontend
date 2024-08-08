@@ -1,3 +1,4 @@
+// src/pages/Signup.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,7 +41,7 @@ const Signup = ({ onSignup }) => {
     setIsPasswordValid(isValid);
   }, [password]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
       setErrorMessage('Invalid email format');
@@ -54,9 +55,26 @@ const Signup = ({ onSignup }) => {
       setErrorMessage('Passwords do not match');
       return;
     }
-  
-    onSignup(email);
-    navigate('/');
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        onSignup(email);
+        navigate('/');
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Signup failed');
+      }
+    } catch (error) {
+      setErrorMessage('Signup failed: ' + error.message);
+    }
   };
 
   return (
@@ -113,11 +131,9 @@ const Signup = ({ onSignup }) => {
           </div>
           {errorMessage && <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>}
           <div className="flex items-center justify-between">
-            {isPasswordValid && (
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Submit
-              </button>
-            )}
+            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Submit
+            </button>
           </div>
         </form>
       </div>
