@@ -1,36 +1,34 @@
-//app.jsx
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./pages/Home";
+import AgentPage from "./pages/AgentPage";
 
-const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState('');
-
-  const handleLogin = (userEmail) => {
-    setIsLoggedIn(true);
-    setEmail(userEmail);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setEmail('');
-  };
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <Router>
-      <div>
-        <Navbar isLoggedIn={isLoggedIn} email={email} onLogout={handleLogout} />
-        <Routes>
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/signup" element={<Signup onSignup={handleLogin} />} />
-          <Route path="/" element={<Login onLogin={handleLogin} />} />
-        </Routes>
-      </div>
+      <Navbar isAuthenticated={isAuthenticated} user={user} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/rent" element={<Home />} />
+        <Route path="/buy" element={<Home />} />
+        <Route
+          path="/signup"
+          element={<Signup setIsAuthenticated={setIsAuthenticated} setUser={setUser} />}
+        />
+        <Route
+          path="/login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} setUser={setUser} />}
+        />
+        <Route path="/agent" element={<AgentPage />} />
+      </Routes>
     </Router>
   );
-};
+}
 
 export default App;
