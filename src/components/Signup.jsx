@@ -22,14 +22,35 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Perform sign up logic here, then navigate
     if (data.accountType === "agent") {
       navigate("/agent");
     } else {
       navigate("/home");
     }
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        onSignup(email);
+        navigate('/');
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Signup failed');
+      }
+    } catch (error) {
+      setErrorMessage('Signup failed: ' + error.message);
+    }
   };
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-4 bg-white shadow-md rounded-lg">
